@@ -1,0 +1,27 @@
+# Environment — never commit API keys
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+*.jsonl
+
+# Node
+node_modules/
+moodify/dist/
+moodify/.vite/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
