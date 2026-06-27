@@ -159,7 +159,7 @@ export default function DiscoveryPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto bg-gradient-to-b from-[#0d2818] via-sp-dark to-sp-dark">
+    <div className="flex-1 overflow-y-auto bg-gradient-to-b from-[#0d2818] via-sp-dark to-sp-dark pb-24 md:pb-8">
       {/* Header */}
       <div className="px-6 pt-6 pb-4 flex items-center gap-4">
         <div className="w-12 h-12 bg-sp-green rounded-xl flex items-center justify-center flex-shrink-0">

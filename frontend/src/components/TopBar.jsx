@@ -20,62 +20,66 @@ export default function TopBar() {
   const location = useLocation()
 
   return (
-    <div className="flex items-center justify-between px-4 h-16 bg-sp-black flex-shrink-0 z-10">
+    <div className="flex items-center justify-between px-3 md:px-4 h-14 md:h-16 bg-sp-black flex-shrink-0 z-10">
       {/* Left: Logo */}
-      <div className="flex items-center gap-3 min-w-[200px]">
+      <div className="flex items-center gap-3">
         <SpotifyLogo />
       </div>
 
-      {/* Center: Nav + Search */}
-      <div className="flex items-center gap-2 flex-1 max-w-[680px]">
+      {/* Center: Nav + Search — desktop full, mobile search icon only */}
+      <div className="flex items-center gap-2 flex-1 max-w-[680px] mx-3">
+        {/* Back/forward — desktop only */}
         <button
           onClick={() => navigate(-1)}
-          className="w-8 h-8 rounded-full bg-[rgba(0,0,0,0.7)] flex items-center justify-center hover:bg-sp-hover transition-colors"
+          className="hidden md:flex w-8 h-8 rounded-full bg-[rgba(0,0,0,0.7)] items-center justify-center hover:bg-sp-hover transition-colors"
         >
           <ChevronLeft className="w-4 h-4 text-white" />
         </button>
         <button
           onClick={() => navigate(1)}
-          className="w-8 h-8 rounded-full bg-[rgba(0,0,0,0.7)] flex items-center justify-center hover:bg-sp-hover transition-colors"
+          className="hidden md:flex w-8 h-8 rounded-full bg-[rgba(0,0,0,0.7)] items-center justify-center hover:bg-sp-hover transition-colors"
         >
           <ChevronRight className="w-4 h-4 text-white" />
         </button>
 
+        {/* Home button — desktop only */}
         <button
           onClick={() => navigate('/home')}
-          className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+          className={`hidden md:flex w-10 h-10 rounded-full items-center justify-center transition-colors ${
             location.pathname === '/home' ? 'bg-white' : 'bg-sp-elevated hover:bg-sp-hover'
           }`}
         >
           <Home className={`w-5 h-5 ${location.pathname === '/home' ? 'text-black' : 'text-white'}`} />
         </button>
 
-        {/* Search bar */}
+        {/* Search bar — full on desktop, compact on mobile */}
         <div
-          className="flex items-center gap-3 flex-1 bg-[#2A2A2A] hover:bg-[#3A3A3A] transition-colors rounded-full px-4 h-10 cursor-text"
+          className="flex items-center gap-2 flex-1 bg-[#2A2A2A] hover:bg-[#3A3A3A] transition-colors rounded-full px-3 md:px-4 h-9 md:h-10 cursor-text"
           onClick={() => navigate('/search')}
         >
           <Search className="w-4 h-4 text-white flex-shrink-0" />
-          <span className="text-sm text-sp-muted flex-1">What do you want to play?</span>
-          <div className="w-px h-5 bg-sp-subtle flex-shrink-0" />
-          <AISparkleIcon />
+          <span className="text-xs md:text-sm text-sp-muted flex-1 truncate">What do you want to play?</span>
+          <div className="hidden md:block w-px h-5 bg-sp-subtle flex-shrink-0" />
+          <div className="hidden md:block"><AISparkleIcon /></div>
         </div>
       </div>
 
       {/* Right: Actions */}
-      <div className="flex items-center gap-3 min-w-[200px] justify-end">
-        <button className="text-sm font-semibold bg-white text-black rounded-full px-4 py-1.5 hover:scale-105 transition-transform whitespace-nowrap">
+      <div className="flex items-center gap-2 md:gap-3">
+        {/* Desktop only */}
+        <button className="hidden md:block text-sm font-semibold bg-white text-black rounded-full px-4 py-1.5 hover:scale-105 transition-transform whitespace-nowrap">
           Explore Premium
         </button>
         <button className="hidden lg:flex items-center gap-1.5 text-sm font-medium text-white hover:text-white/80 transition-colors whitespace-nowrap">
           Install App
         </button>
-        <button className="w-8 h-8 flex items-center justify-center text-sp-muted hover:text-white transition-colors">
+        <button className="hidden md:flex w-8 h-8 items-center justify-center text-sp-muted hover:text-white transition-colors">
           <Bell className="w-5 h-5" />
         </button>
-        <button className="w-8 h-8 flex items-center justify-center text-sp-muted hover:text-white transition-colors">
+        <button className="hidden md:flex w-8 h-8 items-center justify-center text-sp-muted hover:text-white transition-colors">
           <Users className="w-5 h-5" />
         </button>
+        {/* Avatar — always visible */}
         <button className="w-8 h-8 rounded-full bg-orange-600 flex items-center justify-center text-white text-sm font-bold">
           V
         </button>

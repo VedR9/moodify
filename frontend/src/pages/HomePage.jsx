@@ -112,7 +112,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className="flex-1 overflow-y-auto bg-gradient-to-b from-[#1a1a1a] via-sp-dark to-sp-dark pb-8">
+    <div className="flex-1 overflow-y-auto bg-gradient-to-b from-[#1a1a1a] via-sp-dark to-sp-dark pb-8 md:pb-8 pb-24">
       {/* Top filter */}
       <div className="sticky top-0 z-10 bg-gradient-to-b from-[#1a1a1a] to-transparent pt-4 pb-2 px-6">
         <div className="flex gap-2 mb-2">
