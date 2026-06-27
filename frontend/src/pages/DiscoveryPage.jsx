@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Sparkles, Play, ExternalLink, ChevronDown, ChevronUp, RefreshCw, Clock } from 'lucide-react'
 import { discoverMusic } from '../services/groq'
 import { enrichTracksWithImages } from '../services/musicImages'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const MOOD_CHIPS = [
   { label: 'Deep focus', prompt: "I need to focus deeply on work — something instrumental, minimal, no distractions. Help me get into a flow state." },
@@ -113,6 +114,7 @@ function TrackRow({ track, index, isExpanded, onToggle }) {
 }
 
 export default function DiscoveryPage() {
+  const isMobile = useIsMobile()
   const [step, setStep] = useState('input')   // 'input' | 'loading' | 'results'
   const [query, setQuery] = useState('')
   const [tracks, setTracks] = useState([])
@@ -159,7 +161,7 @@ export default function DiscoveryPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto bg-gradient-to-b from-[#0d2818] via-sp-dark to-sp-dark pb-24 md:pb-8">
+    <div className={`flex-1 overflow-y-auto bg-gradient-to-b from-[#0d2818] via-sp-dark to-sp-dark ${isMobile ? 'pb-24' : 'pb-8'}`}>
       {/* Header */}
       <div className="px-6 pt-6 pb-4 flex items-center gap-4">
         <div className="w-12 h-12 bg-sp-green rounded-xl flex items-center justify-center flex-shrink-0">

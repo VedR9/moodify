@@ -8,9 +8,11 @@ import LoginPage     from './pages/LoginPage'
 import HomePage      from './pages/HomePage'
 import DiscoveryPage from './pages/DiscoveryPage'
 import SearchPage    from './pages/SearchPage'
+import { useIsMobile } from './hooks/useIsMobile'
 
 function Shell() {
   const location = useLocation()
+  const isMobile = useIsMobile()
   const bare = ['/', '/login'].includes(location.pathname)
 
   if (bare) {
@@ -27,12 +29,12 @@ function Shell() {
       <TopBar />
 
       <div className="flex flex-1 gap-2 px-2 overflow-hidden min-h-0">
-        {/* Sidebar — desktop only */}
-        <div className="hidden md:flex w-[280px] min-w-[280px] flex-col">
-          <Sidebar />
-        </div>
+        {!isMobile && (
+          <div className="w-[280px] min-w-[280px] flex flex-col">
+            <Sidebar />
+          </div>
+        )}
 
-        {/* Main content — extra bottom padding on mobile for bottom nav */}
         <div className="flex-1 bg-sp-dark rounded-lg overflow-hidden flex flex-col min-w-0">
           <Routes>
             <Route path="/home"     element={<HomePage />} />
@@ -44,13 +46,11 @@ function Shell() {
         </div>
       </div>
 
-      {/* Player bar — desktop only */}
-      <div className="hidden md:block px-2 pb-2">
-        <PlayerBar />
-      </div>
-
-      {/* Bottom nav — mobile only */}
-      <BottomNav />
+      {isMobile ? <BottomNav /> : (
+        <div className="px-2 pb-2">
+          <PlayerBar />
+        </div>
+      )}
     </div>
   )
 }

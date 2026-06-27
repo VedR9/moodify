@@ -2,6 +2,7 @@ import { Play, Sparkles, ChevronRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { getArtistImage, getAlbumArt } from '../services/musicImages'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const QUICK_PICKS = [
   { id: 1, name: 'Arijit Singh Mix',    artist: 'Arijit Singh',    color: '#c0392b' },
@@ -81,6 +82,7 @@ function MusicCard({ item, imageUrl }) {
 
 export default function HomePage() {
   const navigate = useNavigate()
+  const isMobile = useIsMobile()
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
 
@@ -112,7 +114,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className="flex-1 overflow-y-auto bg-gradient-to-b from-[#1a1a1a] via-sp-dark to-sp-dark pb-8 md:pb-8 pb-24">
+    <div className={`flex-1 overflow-y-auto bg-gradient-to-b from-[#1a1a1a] via-sp-dark to-sp-dark ${isMobile ? 'pb-24' : 'pb-8'}`}>
       {/* Top filter */}
       <div className="sticky top-0 z-10 bg-gradient-to-b from-[#1a1a1a] to-transparent pt-4 pb-2 px-6">
         <div className="flex gap-2 mb-2">

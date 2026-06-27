@@ -17,9 +17,12 @@ const BROWSE_CATEGORIES = [
   { name: 'Party',           gradient: 'from-violet-700 to-purple-900' },
 ]
 
+import { useIsMobile } from '../hooks/useIsMobile'
+
 export default function SearchPage() {
+  const isMobile = useIsMobile()
   return (
-    <div className="flex-1 overflow-y-auto bg-sp-dark pb-24 md:pb-8">
+    <div className={`flex-1 overflow-y-auto bg-sp-dark ${isMobile ? 'pb-24' : 'pb-8'}`}>
       <div className="px-6 pt-6">
         <h1 className="text-2xl font-bold text-white mb-6">Browse all</h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
