@@ -1,0 +1,44 @@
+name: Spotify Discovery Pulse Pipeline
+
+on:
+  schedule:
+    # Every Sunday at 10:00 AM IST (4:30 AM UTC)
+    - cron: '30 4 * * 0'
+  workflow_dispatch:
+
+jobs:
+  run-pulse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Run E2E Pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_DOC_ID: ${{ secrets.GOOGLE_DOC_ID }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          MCP_SERVER_URL: ${{ secrets.MCP_SERVER_URL }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USER_AGENT: spotify-discovery-engine/0.1
+          PYTHONPATH: phases/phase-01-data-and-compliance:phases/phase-02-pulse-generation:phases/phase-03-mcp-workspace
+        run: |
+          python phases/phase-04-e2e-and-operations/e2e_runner.py
+
+      - name: Commit Updated Dashboard History
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add ui/public/history.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update discovery history.json [skip ci]" && git push)
